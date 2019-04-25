@@ -203,11 +203,11 @@ class Trainer:
             plan = self.decoder(action_onehot, plan)
             # step_this_option += 1
             
-            if train:
-                action_tensor = tf.squeeze(tf.random.categorical(self.decoder.logits, 1))
-                action = action_tensor.numpy()
-            else:
-                action = np.argmax(np.squeeze(self.decoder.scores.numpy()))
+            # if train:
+            action_tensor = tf.squeeze(tf.random.categorical(self.decoder.logits, 1))
+            action = action_tensor.numpy()
+            # else:
+            #     action = np.argmax(np.squeeze(self.decoder.scores.numpy()))
 
             # avoid replanning forever
             # while True:
