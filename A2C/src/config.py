@@ -47,7 +47,6 @@ class Configuration:
         self.conv_dims = None
         self.convnet_kind = 'small'
 
-
         '''
         Critic
         '''
@@ -64,8 +63,6 @@ class Configuration:
         self.dense_initializer_De = "he_normal"
 
         self.output_dim_De = self.n_actions
-
-        # self.max_n_decoding = 10
 
         '''
         Trainer

@@ -177,13 +177,9 @@ class Trainer:
         state_values = []
         entropys = []
 
-
-        # step_this_option = 0
         n_steps = 0
         replan_times = 0
         action_onehot = tf.one_hot([0], self.config.output_dim_De)
-
-        # replan = True
 
         # reset the environment and agent
         obs = self.env.reset()
@@ -199,31 +195,13 @@ class Trainer:
             replan_times += 1
             #states = self.option_encoder([obs])
             plan = self.encoder(tf.expand_dims(np.array(state_history, dtype=np.float32), 0))
-
             plan = self.decoder(action_onehot, plan)
-            # step_this_option += 1
             
             # if train:
             action_tensor = tf.squeeze(tf.random.categorical(self.decoder.logits, 1))
             action = action_tensor.numpy()
             # else:
             #     action = np.argmax(np.squeeze(self.decoder.scores.numpy()))
-
-            # avoid replanning forever
-            # while True:
-            #     action_tensor = tf.squeeze(tf.random.categorical(self.decoder.logits, 1))
-            #     action = action_tensor.numpy()
-            #     if step_this_option == 1 and action == self.config.n_actions:
-            #         continue
-            #     else:
-            #         break
-
-            # ##
-            # if action == self.config.n_actions or step_this_option > self.config.max_n_decoding:
-            #     replan = True
-            #     step_this_option = 0
-            #     continue
-            # ##
 
             state_value_tensor = self.critic([obs])
 
